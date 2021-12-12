@@ -33,7 +33,7 @@
 					"name": "JAVA_OPTS"
 				}
 			],
-			"image": "linuxserver/airsonic:arm32v7-latest",
+			"image": "linuxserver/airsonic:arm64v8-latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/airsonic-logo.png",
 			"name": "airsonic",
 			"platform": "linux",
@@ -61,7 +61,7 @@
 					"container": "/media"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Airsonic/Config",
+					"bind": "/portainer/Files/AppData/Config/Airsonic/config/",
 					"container": "/config"
 				}
 			]
@@ -267,7 +267,7 @@
 			"name": "booksonic",
 			"platform": "linux",
 			"ports": [
-				"4040:4040/tcp"
+				"4041:4040/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Booksonic",
@@ -758,7 +758,7 @@
 			"name": "dashmachine",
 			"platform": "linux",
 			"ports": [
-				"5000:5000/tcp"
+				"5100:5000/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "DashMachine",
@@ -925,7 +925,7 @@
 					"default": "192.168.0.0/16"
 				}
 			],
-			"image": "sgtsquiggs/deluge-openvpn:arm32v7-latest",
+			"image": "sgtsquiggs/deluge-openvpn:arm64v8-latest",
 			"name": "deluge-openvpn",
 			"platform": "linux",
 			"ports": [
@@ -1020,7 +1020,7 @@
 			"name": "dradis",
 			"platform": "linux",
 			"ports": [
-				"3000:3000/tcp"
+				"3100:3000/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Dradis",
@@ -1029,7 +1029,7 @@
 		{
 			"categories": [
                 "Other",
-				"CMS",
+				"CMD",
 				"Web",
 				"Tools"
 			],
@@ -1437,7 +1437,7 @@
 			"name": "gazee",
 			"platform": "linux",
 			"ports": [
-				"4242:4242/tcp"
+				"4243:4242/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Gazee",
@@ -1459,11 +1459,111 @@
 		},
 		{
 			"categories": [
+				"SCM",
+				"Tools"
+			],
+			"description": "A painless self-hosted Git service.",
+			"image": "gitea/gitea:latest",
+			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/gitea.png",
+			"name": "gitea",
+			"note": "More possible Environment Variables: https://docs.gitea.io/en-us/install-with-docker/#managing-deployments-with-environment-variables",
+			"platform": "linux",
+			"ports": [
+				"8124:3000/tcp",
+				"222:22/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "Gitea",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/portainer/Files/AppData/Config/Gitea",
+					"container": "/data"
+				},
+				{
+					"bind": "/etc/timezone",
+					"container": "/etc/timezone:ro"
+				},
+				{
+					"bind": "/etc/localtime",
+					"container": "/etc/localtime:ro"
+				}
+			],
+			"env": [
+				{
+					"default": "1000",
+					"label": "USER_UID",
+					"name": "USER_UID"
+				},
+				{
+					"default": "1000",
+					"label": "USER_GID",
+					"name": "USER_GID"
+				}
+			]
+		},
+		{
+			"categories": [
+				"SCM",
+				"Tools"
+			],
+			"description": "Gitea with Mariadb: A painless self-hosted Git service.",
+			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/gitea.png",
+			"name": "gitea-mysql",
+			"note": "More possible Environment Variables: https://docs.gitea.io/en-us/install-with-docker/#managing-deployments-with-environment-variables",
+			"env": [
+				{
+					"default": "1000",
+					"label": "USER_UID",
+					"name": "USER_UID"
+				},
+				{
+					"default": "1000",
+					"label": "USER_GID",
+					"name": "USER_GID"
+				},
+                {
+					"default": "America/New_York",
+                    "label": "TZ",
+                    "name": "TZ"
+                },
+				{
+					"default": "gitea",
+					"label": "DATABASE_NAME",
+					"name": "DATABASE_NAME"
+				},
+				{
+					"default": "gitea",
+					"label": "DATABASE_USER",
+					"name": "DATABASE_USER"
+				},
+                {
+                    "label": "DATABASE_PASSWORD",
+                    "name": "DATABASE_PASSWORD",
+                    "default": ""
+                },
+				{
+                    "label": "MYSQL_ROOT_PASSWORD",
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "default": ""
+                }
+			],
+			"platform": "linux",
+			"restart_policy": "unless-stopped",
+			"title": "Gitea with Mariadb",
+			"type": 3,
+			"repository": {
+				"stackfile": "stack/gitea-mariadb.yml",
+				"url": "https://github.com/novaspirit/pi-hosted/"
+			}
+		},
+		{
+			"categories": [
 				"Other",
 				"Tools"
 			],
 			"description": "A simple server for sending and receiving messages",
-			"image": "gotify/server-arm7:latest",
+			"image": "gotify/server-arm64:latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/gotify.png",
 			"name": "gotify",
 			"note": "ARM7 Image. Documentation is Available \u003ca href='https://gotify.net/docs/index'\u003ehere\u003c/a\u003e.",
@@ -1742,7 +1842,7 @@
 					"name": "TZ"
 				}
 			],
-			"image": "oznu/homebridge:debian-arm32v7",
+			"image": "oznu/homebridge:debian",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/homebridge.png",
 			"name": "homebridge-debian",
 			"network": "host",
@@ -1948,7 +2048,7 @@
 					"name": "MYJD_PASSWORD"
 				}
 			],
-			"image": "jaymoulin/jdownloader:1.4.3-armhf",
+			"image": "jaymoulin/jdownloader:1.4.3",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/jdownloader.png",
 			"name": "JDownloader",
 			"platform": "linux",
@@ -2171,7 +2271,7 @@
 					"Tools"
 			],
 			"description": "An alternative private front-end to Reddit",
-			"image": "spikecodes/libreddit:armv7",
+			"image": "spikecodes/libreddit:arm",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/libreddit.png",
 			"name": "libreddit",
 			"platform": "linux",
@@ -2311,7 +2411,7 @@
                                         "default": "3306"
                                 }
 			],
-			"image": "linuxserver/lychee:arm32v7-latest",
+			"image": "linuxserver/lychee:arm64v8-latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/lychee-icon.png",
 			"name": "lychee",
 			"platform": "linux",
@@ -2419,14 +2519,14 @@
                     "label": "MYSQL_PASSWORD",
                     "name": "MYSQL_PASSWORD",
                     "default": "dbpassword"
-                },
-				{
-                    "label": "MYSQL_ROOT_PASSWORD",
-                    "name": "MYSQL_ROOT_PASSWORD",
-                    "default": "rootpassword"
-                }
+				},
+                {
+					"label": "MYSQL_ROOT_PASSWORD",
+					"name": "MYSQL_ROOT_PASSWORD",
+					"default": "rootpassword"
+				}
 			],
-			"image": "linuxserver/mariadb:arm32v7-latest",
+			"image": "linuxserver/mariadb:arm64v8-latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/mariadb-icon.png",
 			"name": "mariadb",
 			"platform": "linux",
@@ -2448,8 +2548,8 @@
 				"Other",
 				"Tools"
 			],
-			"description": "[DEPRECATED] Arm32 support dropped at v0.4.3. A self-hosted recipe manager and meal planner",
-			"image": "hkotel/mealie:v0.4.3",
+			"description": "A self-hosted recipe manager and meal planner",
+			"image": "hkotel/mealie:latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/mealie.png",
 			"name": "mealie",
 			"note": "Default Credentials: Username: changeme@email.com Password: MyPassword. Documentation is Available \u003ca href='https://hay-kot.github.io/mealie/documentation/getting-started/install/'\u003ehere\u003c/a\u003e.",
@@ -2567,14 +2667,14 @@
 				}
 			]
 		},
-        {
-			"categories": [
-                "Other",
-                "Tools",
-                "Games"
-			],
-			"description": "This docker image provides a Minecraft Server that will automatically download the latest stable version at startup. You can also run/upgrade to any specific version or the latest snapshot. See the Versions section below for more information.",
-            "image": "itzg/minecraft-server:latest",
+                {
+                        "categories": [
+                                "Other",
+                                "Tools",
+                                "Games"
+                        ],
+						"description": "This docker image provides a Minecraft Server that will automatically download the latest stable version at startup. You can also run/upgrade to any specific version or the latest snapshot. See the Versions section below for more information.",
+                        "image": "itzg/minecraft-server:latest",
                         "logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/minecraft.png",
                         "name": "minecraft",
                         "platform": "linux",
@@ -2674,7 +2774,7 @@
 			"name": "mstream",
 			"platform": "linux",
 			"ports": [
-				"3000:3000/tcp"
+				"3200:3000/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Mstream",
@@ -3055,11 +3155,11 @@
 			"name": "nextcloudpi",
 			"note": "The database user is nextcloud and the database is nextcloud_db. The host of the database will be located at the bottom of the DB conotainer in portainer.",
 			"platform": "linux",
-			"image": "ownyourbits/nextcloudpi",
+			"image": "ownyourbits/nextcloudpi:latest",
 			"title": "NextcloudPi",
 			"type": 1,
 			"ports":[
-				"4443:4443/tcp",
+				"4444:4443/tcp",
 				"8443:443/tcp",
 				"8480:8480/tcp"
 			],
@@ -3116,9 +3216,9 @@
 			"name": "nginx-proxy-manager",
 			"platform": "linux",
 			"ports": [
-				"80:8080/tcp",
-				"81:8181/tcp",
-				"443:4443/tcp"
+				"80:80/tcp",
+				"81:81/tcp",
+				"443:443/tcp"
 			],
 			"env": [
 				{
@@ -3285,7 +3385,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "mbentley/omada-controller:latest-armv7l",
+			"image": "mbentley/omada-controller:latest-arm64",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/omada.png",
 			"name": "omada-controller",
 			"platform": "linux",
@@ -3353,9 +3453,9 @@
 			"description": "OpenVPN Access Server is a full featured secure network tunneling VPN software solution that integrates OpenVPN server capabilities, enterprise management capabilities, simplified OpenVPN Connect UI, and OpenVPN Client software packages that accommodate Windows, MAC, Linux, Android, and iOS environments.",
 			"env": [
 				{
-					"default": "eth0",
 					"label": "INTERFACE",
-					"name": "INTERFACE"
+					"name": "INTERFACE",
+					"default": "eth0"
 				},
 				{
 					"default": "1000",
@@ -3501,6 +3601,94 @@
 			"categories": [
 				"Photos"
 			],
+			"description": "PhotoPrism® is an AI-powered app for browsing, organizing & sharing your photo collection. It makes use of the latest technologies to tag and find pictures automatically without getting in your way. You can run it at home, on a private server, or in the cloud.",
+			"env": [
+				{
+					"default": "change me to a secure password",
+					"label": "PHOTOPRISM_ADMIN_PASSWORD",
+					"name": "PHOTOPRISM_ADMIN_PASSWORD"
+				},
+				{
+					"default": "http://localhost:2342/",
+					"label": "PHOTOPRISM_SITE_URL",
+					"name": "PHOTOPRISM_SITE_URL"
+				},
+				{
+					"label": "PHOTOPRISM_PUBLIC",
+					"name": "PHOTOPRISM_PUBLIC",
+					"select": [
+						{
+							"text": "Enable Password Protection",
+							"value": "false",
+							"default": true
+						},
+						{
+							"text": "No authentication required",
+							"value": "true"
+						}
+					]
+				},
+				{
+					"label": "PHOTOPRISM_READONLY",
+					"name": "PHOTOPRISM_READONLY",
+					"select": [
+						{
+							"text": "Photo folder in Read/Write mode",
+							"value": "false",
+							"default": true
+						},
+						{
+							"text": "Don't modify originals directory (reduced functionality)",
+							"value": "true"
+						}
+					]
+				},
+				{
+					"label": "PHOTOPRISM_DISABLE_FACES",
+					"name": "PHOTOPRISM_DISABLE_FACES",
+					"select": [
+						{
+							"text": "Enable facial recognition",
+							"value": "false",
+							"default": true
+						},
+						{
+							"text": "Disable facial recognition",
+							"value": "true"
+						}
+					]
+				},
+				{
+					"default": "change me to a secure password",
+					"label": "MYSQL_PASSWORD",
+					"name": "MYSQL_PASSWORD"
+				},
+				{
+					"default": "change me to a secure password",
+					"label": "MYSQL_ROOT_PASSWORD",
+					"name": "MYSQL_ROOT_PASSWORD"
+				},
+				{
+					"default": "/portainer/PhotoPrism",
+					"label": "HOST_MEDIA_PATH",
+					"name": "HOST_MEDIA_PATH"
+				}
+			],
+			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/photoprism.png",
+			"name": "PhotoPrism",
+			"note": "Your device should have at least \u003cb\u003e4 GB\u003c/b\u003e of memory. Running PhotoPrism on a server with less than 4 GB of swap space or setting a memory/swap limit can cause unexpected restarts, especially when the indexer temporarily needs more memory to process large files.\u003cbr\u003eIt's important to boot your Rapsberry Pi 3/4 with the parameter \u003cb\u003earm_64bit=1\u003c/b\u003e in \u003cb\u003econfig.txt\u003c/b\u003e to use ARM64 image.\u003cbr\u003eIf you see Docker errors related to \u003cb\u003e\"cgroups\"\u003c/b\u003e, it may help to add the following to \u003cb\u003e/boot/firmware/cmdline.txt\u003c/b\u003e:\u003cbr\u003e\u003cbr\u003e\u003cb\u003ecgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eUser pi needs to have access to \u003cb\u003eHOST_MEDIA_PATH\u003c/b\u003e, you can force it with:\u003cbr\u003e\u003cbr\u003e\u003cb\u003esudo chown -R pi:pi /path/to/media\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eRun \u003cb\u003einstall_photoprism.sh\u003c/b\u003e before deploying this container.",
+			"platform": "linux",
+			"title": "PhotoPrism",
+			"type": 3,
+			"repository": {
+				"stackfile": "stack/photoprism.yml",
+				"url": "https://github.com/novaspirit/pi-hosted"
+			}
+		},
+		{
+			"categories": [
+				"Photos"
+			],
 			"description": "A simple, easy way to turn a photo album into a webgallery",
 			"env": [
 				{
@@ -3555,7 +3743,7 @@
 				"53:53/udp",
 				"67:67/udp",
 				"1010:80/tcp",
-				"443:443/tcp"
+				"4443:443/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Pi-Hole",
@@ -3678,7 +3866,7 @@
 			"categories": [
 				"Photos"
 			],
-			"description": "[Current Issue with PiWigo arm32 support pending fix]Piwigo is photo gallery software for the web, built by an active community of users and developers.",
+			"description": "Piwigo is photo gallery software for the web, built by an active community of users and developers.",
 			"env": [
 				{
 					"default": "1000",
@@ -3757,7 +3945,47 @@
 		},
 		{
 			"categories": [
-				"Cloud",
+				"VPN",
+				"Tools",
+				"Other",
+				"Web"
+			],
+			"description": "Pritunl container built on Alpine Linux. Supports IPv6 and running behind a reverse proxy. This container requires an external Mongo DB and should be run via Docker Compose or other orchestration.",
+			"env": [
+				{
+					"default": "false",
+					"label": "REVERSE_PROXY",
+					"name": "REVERSE_PROXY"
+				},
+				{
+					"label": "PRITUNL_OPTS",
+					"name": "PRITUNL_OPTS"
+				},
+				{
+					"default": "mongodb://mongo:27017/pritunl",
+					"label": "MONGODB_URI",
+					"name": "MONGODB_URI"
+				},
+				{
+					"default": "false",
+					"label": "WIREGUARD",
+					"name": "WIREGUARD"
+				}
+			],
+			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/pritunl.png",
+			"name": "pritunl",
+			"note": "Documentation on this containier can be found here: \u003ca href=https://hub.docker.com/r/goofball222/pritunl\u003ehttps://hub.docker.com/r/goofball222/pritunl\u003c/a\u003e",
+			"platform": "linux",
+			"repository": {
+				"stackfile": "stack/pritunl.yml",
+				"url": "https://github.com/novaspirit/pi-hosted"
+			},
+			"title": "Pritunl",
+			"type": 3
+		},
+		{
+			"categories": [
+								"Cloud",
 				"Productivity",
 				"Tools",
 				"Web"
@@ -3835,6 +4063,33 @@
 				{
 					"bind": "/portainer/Files/AppData/Config/ProjectSend",
 					"container": "/config"
+				}
+			]
+		},
+		{
+			"categories": [
+				"Email",
+				"Productivity",
+				"Tools",
+				"Other"
+			],
+			"description": "This is an unofficial Docker container of the ProtonMail Bridge. Some of the scripts are based on Hendrik Meyer's work.",
+			"image": "shenxn/protonmail-bridge:build",
+			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/protonmail-bridge.png",
+			"name": "protonmail-bridge",
+			"note": "Please refer to the documentation \u003ca href='https://hub.docker.com/r/shenxn/protonmail-bridge'/\u003ehere\u003c/a\u003e to set this up.",
+			"platform": "linux",
+			"ports": [
+				"143:143/tcp",
+				"25:25/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "ProtonMail Bridge",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/portainer/Files/AppData/ProtonMail-Bridge",
+					"container": "/root"
 				}
 			]
 		},
@@ -4202,7 +4457,7 @@
 				{
 					"default": "portainer;/share;yes;no;yes;guest",
 					"label": "SHARE",
-					"name": "SHARE"
+					"name": "SHARE"				
 				}
 			],
 			"volumes": [
@@ -4427,14 +4682,14 @@
 			"description": "Run a Speedtest every hour and graph the results.  See https://hub.docker.com/r/henrywhitaker3/speedtest-tracker/tags for arch options",
 			"env": [
 				{
-					"default": "latest-arm",
 					"label": "arch",
-					"name": "arch"
+					"name": "arch",
+					"default": "latest-arm"
 				},
 				{
-					"default": "true",
 					"label": "OOKLA_EULA_GDPR",
-					"name": "OOKLA_EULA_GDPR"
+					"name": "OOKLA_EULA_GDPR",
+					"default": "true"
 				}
 			],
 			"image": "henrywhitaker3/speedtest-tracker:dev-arm",
@@ -4899,6 +5154,7 @@
 				{
 					"bind": "/var/run/docker.sock",
 					"container": "/var/run/docker.sock"
+
 				}
 			]
 		},
@@ -5349,7 +5605,7 @@
 				"VPN"
 			],
 			"description": "You have found the easiest way to install & manage WireGuard on any Linux host!",
-			"image": "weejewel/wg-easy",
+			"image": "weejewel/wg-easy:latest",
 			"logo": "https://raw.githubusercontent.com/novaspirit/pi-hosted/master/images/wireguard.png",
 			"name": "wg-easy",
 			"platform": "linux",
