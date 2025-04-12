@@ -1,0 +1,29 @@
+{
+    "categories": [
+        "Tools",
+        "Web",
+        "RSS"
+    ],
+    "description": "rss-dl is a tool to auto download rss videos",
+    "env": [
+        {
+            "default": "rss.example.com",
+            "label": "RSS_FEED_URL",
+            "name": "RSS_FEED_URL"
+        }
+    ],
+    "image_arm64": "bossman7309/rss-dl:latest",
+    "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/rss-dl.png",
+    "name": "rss-dl",
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "title": "rss-dl",
+    "type": 1,
+    "volumes": [
+        {
+            "bind": "/downloads",
+            "container": "/portainer/Files/AppData/Config/rss-dl"
+        }
+    ],
+    "webpage": "https://git.bossman7309.net/bossman7309/rss-dl"
+}

@@ -15,34 +15,24 @@ An easy to use VPN server powered by [WireGuard](https://github.com/WeeJeWel/wg-
 First find Wiregaurd in the listing of templates from the project.
 ![find wireguard](https://user-images.githubusercontent.com/42878642/140615769-aad713c2-630c-437a-b56d-9102e2f7b1ed.png)
 
-Then you will want to "Copy as Custom" because we will need to change some of the default values to tailor it for your use.
-![copy custom](https://user-images.githubusercontent.com/42878642/140615790-b8fda3f3-496d-46d7-aa02-16de1877f289.png)
+## Set all variables
 
-### This Step is now complete go to the next step.
-<br><br>
-## Customize the App Template.<br>
+![DeployStack](images/wireguard_DeployStack.png)
 
-We will need to edit the template to change a few values.
-![edit template](https://user-images.githubusercontent.com/42878642/140615811-9307f1cf-078a-4e38-b5d9-bad661c1bfad.png)
+- `WG_HOST`: A domain name (usually a DDNS) that points to your public IP
+- `PASSWORD`: Password to access the WebUI interface. If left blank, there will be no login page
+- `WG_PORT`: PORT to use to connect to Wireguard from outside
+- `WG_DEFAULT_DNS`: DNS to use while on VPN. It can point to your router (usually 192.168.x.x) or an external one (like 1.1.1.1 or 8.8.8.8). You can set 2 separating them by comma
+- `WG_DEFAULT_ADDRESS`: Leave it as the default '10.8.0.x' unless you know what you are doing.
+- `WG_ALLOWED_IPS`: IPs which connection will be allowed.
 
-First Ensure the top 3 items (highlighted yellow) are filled out with your own values.
+On my network I deploy a Pi-Hole for DNS level ad blocking and I also have multiple networks which all have various devices on them. So for my setup I used the following values, but make sure you use what will work for your setup:
 
-Second you will need to change the two values in the environment section that are circled.
-
-Third you may want to change the 2 items with lines next to them.  On my network I deploy a Pi-Hole for DNS level ad blocking and I also have multiple networks which all have
-various devices on them.  So for my setup I used the following values, but make sure you use what will work for your setup:<br>
 `- WG_DEFAULT_DNS=192.168.1.1` #This is the address of my router for DNS forwarding on my network, you can use outside DNS servers for this ie. 8.8.8.8, 8.8.4.4<br>
 `- WG_ALLOWED_IPS=0.0.0.0/0, ::/0` #This will allow all addresses from any network, you may want to lock this down for your own setup.
 
-Finally make sure you save these values by clicking on the "Update the Template" button on the bottom
-![update template](https://user-images.githubusercontent.com/42878642/140615992-60749352-c0b5-4566-ba1f-06b675a3b517.png)
-<br><br>
+Once done, just click `Deploy the stack`.
 
-## Deploy the Stack
-
-Find the new entry (WireGuard) in your Custom Templates and click on it, then click on the "Deploy the stack" button on the bottom.
-![deploy stack](https://user-images.githubusercontent.com/42878642/140616046-89987892-358c-488d-ad97-afb82338c5e0.png)
-<br><br>
 ### Setup a User
  
 On your main browser navigate to your pi's ip address with port attached (http://192.168.1.10:51821/)
@@ -78,7 +68,7 @@ an active cell data connection on your phone.
 Click the slider next to the tunnel we setup previously and it should activate (for android phones a little key icon shows up on your notification bar).
 
 Open your browser and go to a standard website to ensure DNS is functional.<br>
-https://github.com/novaspirit/pi-hosted
+https://github.com/pi-hosted/pi-hosted
 
 Next open a new tab or in the same tab navigate to an IP based service that you have NOT made available outside your network, for me that would be Homer.<br>
 http://192.168.1.10:8902/

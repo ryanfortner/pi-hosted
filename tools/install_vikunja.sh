@@ -19,8 +19,8 @@ check_internet
 
 echo "Creating directories..."
 sudo mkdir -p /portainer/Files/AppData/Config/Vikunja || error "Failed to create Vikunja directory!"
-eecho "Downloading vikunja config files"
-sudo wget -O /portainer/Files/AppData/Config/Vikunja/nginx.conf https://raw.githubusercontent.com/novaspirit/pi-hosted/master/configs/vikunja_nginx.conf || error "Failed to download nginx.conf file!"
+echo "Downloading vikunja config files"
+sudo wget -O /portainer/Files/AppData/Config/Vikunja/nginx.conf https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/configs/vikunja_nginx.conf || error "Failed to download nginx.conf file!"
 echo "Setting permissions..."
-sudo chown -R 1000.1000 /portainer/Files/AppData/Config/Vikunja || error "Failed to set permissions for modules data!"
+sudo chown -R 1000:1000 /portainer/Files/AppData/Config/Vikunja || error "Failed to set permissions for modules data!"
 echo "Done You are ready to install the Vikunja Template"

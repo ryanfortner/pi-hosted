@@ -1,0 +1,71 @@
+{
+	"categories": [
+		"Downloaders"
+	],
+	"description": "Popular torrent client with a webui for ease of use.",
+	"env": [
+		{
+			"default": "1000",
+			"label": "PUID",
+			"name": "PUID"
+		},
+		{
+			"default": "1000",
+			"label": "PGID",
+			"name": "PGID"
+		},
+		{
+			"default": "America/New_York",
+			"label": "TZ",
+			"name": "TZ"
+		},
+		{
+			"default": "50",
+			"label": "MAX_FILE_UPLOADS",
+			"name": "MAX_FILE_UPLOADS"
+		},
+		{
+			"default": "info",
+			"label": "RT_LOG_LEVEL",
+			"name": "RT_LOG_LEVEL"
+		},
+		{
+			"default": "erasedata,httprpc",
+			"label": "RU_REMOVE_CORE_PLUGINS",
+			"name": "RU_REMOVE_CORE_PLUGINS"
+		}
+	],
+	"image_arm32": "crazymax/rtorrent-rutorrent:latest",
+	"image_arm64": "crazymax/rtorrent-rutorrent:latest",
+	"image_amd64": "crazymax/rtorrent-rutorrent:latest",
+	"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/rutorrent-icon.png",
+	"name": "rutorrent",
+	"note": "For ruTorrent basic auth, XMLRPC through nginx and WebDAV on completed downloads, you can populate .htpasswd files with the following command:\ndocker run --rm -it httpd:2.4-alpine htpasswd -Bbn <username> <password> >> $(pwd)/passwd/webdav.htpasswd",
+	"officialDoc": "https://github.com/crazy-max/docker-rtorrent-rutorrent",
+	"platform": "linux",
+	"ports": [
+		"6881:6881/udp",
+		"8000:8000/tcp",
+		"8080:8080/tcp",
+		"9001:9000/tcp",
+		"50000:50000/tcp"
+	],
+	"restart_policy": "unless-stopped",
+	"title": "ruTorrent",
+	"type": 1,
+	"volumes": [
+		{
+			"bind": "/portainer/Files/AppData/Config/ruTorrent/config",
+			"container": "/config"
+		},
+		{
+			"bind": "/portainer/Downloads",
+			"container": "/downloads"
+		},
+		{
+			"bind": "/portainer/Files/AppData/Config/ruTorrent/passwd",
+			"container": "/passwd"
+		}
+	],
+	"webpage": "https://github.com/Novik/ruTorrent"
+}
