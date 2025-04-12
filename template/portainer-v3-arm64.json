@@ -10309,8 +10309,8 @@
 				{
 					"default": "ENTER AN ADMIN PASSWORD",
 					"description": "Leave blank to access WebUI without loggin",
-					"label": "PASSWORD_HASH",
-					"name": "PASSWORD_HASH"
+					"label": "PASSWORD",
+					"name": "PASSWORD"
 				},
 				{
 					"default": "51820",
